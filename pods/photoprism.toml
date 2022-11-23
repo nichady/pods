@@ -1,0 +1,28 @@
+ports = [
+  "127.0.0.1:30005:2342",
+]
+
+[containers.mariadb]
+image = "docker.io/library/mariadb:10.7.4"
+command = [ '--transaction-isolation=READ-COMMITTED', '--binlog-format=ROW' ]
+volumes = [ "./data/photoprism/mariadb/:/var/lib/mysql/" ]
+  [containers.mariadb.env]
+  MYSQL_DATABASE = "photoprism"
+  MYSQL_ROOT_PASSWORD = "photoprism"
+  MYSQL_USER = "photoprism"
+  MYSQL_PASSWORD = "photoprism"
+
+[containers.photoprism]
+image = "docker.io/photoprism/photoprism:220302-bullseye"
+volumes = [
+  "./data/photoprism/photoprism/originals/:/photoprism/originals/",
+  "./data/photoprism/photoprism/storage/:/photoprism/storage/",
+]
+  [containers.photoprism.env]
+  PHOTOPRISM_ADMIN_PASSWORD = "${PASSWORD}"
+  PHOTOPRISM_DATABASE_DRIVER = "mysql"
+  PHOTOPRISM_DATABASE_SERVER = "127.0.0.1:3306"
+  PHOTOPRISM_DATABASE_NAME = "photoprism"
+  PHOTOPRISM_DATABASE_USER = "photoprism"
+  PHOTOPRISM_DATABASE_PASSWORD = "photoprism"
+

@@ -1,0 +1,15 @@
+ports = [
+  "${IP_DNS}:53:53/tcp",
+  "${IP_DNS}:53:53/udp",
+  "127.0.0.1:30003:80",
+]
+
+[containers.pihole]
+image = "docker.io/pihole/pihole:2022.04.2"
+volumes = [
+  "./data/pihole/pihole/pihole/:/etc/pihole/",
+  "./data/pihole/pihole/dnsmasq.d/:/etc/dnsmasq.d/",
+]
+env = { WEBPASSWORD = "${PASSWORD}", INTERFACE = "tap0" }
+# tap0 required by podman when using slirp4netns
+

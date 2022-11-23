@@ -1,0 +1,25 @@
+ports = [
+  "${IP_MINECRAFT}:25565:25565/tcp",
+  "${IP_MINECRAFT}:19132:19132/udp",
+  "127.0.0.1:30014:8100",
+]
+
+[containers.minecraft]
+image = "docker.io/itzg/minecraft-server:latest"
+volumes = [
+  "./data/minecraft/minecraft/:/data/",
+]
+  [containers.minecraft.env]
+  VERSION = "1.20.1"
+  TYPE = "PAPER"
+  EULA = "TRUE"
+  REMOVE_OLD_MODS = "TRUE"
+  REMOVE_OLD_MODS_EXCLUDE = "FastChunkPregenerator-2.0.8-SNAPSHOT.jar,NoMobGriefing-3.0.3.jar"
+  PLUGINS = """
+    https://github.com/KaspianDev/AntiPopup/releases/download/14a7979/AntiPopup-6.2.jar
+    https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
+    https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot
+    https://github.com/BlueMap-Minecraft/BlueMap/releases/download/v3.16/BlueMap-3.16-spigot.jar
+    https://cdn.modrinth.com/data/a8UoyV2h/versions/R9W70QUs/bmm-paper-1.4.3.jar
+  """
+  SPIGET_RESOURCES = "79882"

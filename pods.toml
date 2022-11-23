@@ -1,0 +1,9 @@
+name = "stack"
+
+[pods]
+nextcloud = "pods/nextcloud.toml"
+pihole = "pods/pihole.toml"
+photoprism = "pods/photoprism.toml"
+minecraft = "pods/minecraft.toml"
+monica = "pods/monica.toml"
+

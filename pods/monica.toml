@@ -1,0 +1,27 @@
+ports = [
+  "127.0.0.1:30013:80",
+]
+
+[containers.mariadb]
+image = "docker.io/library/mariadb:10.7.4"
+volumes = [ "./data/monica/mariadb/:/var/lib/mysql/" ]
+  [containers.mariadb.env]
+  MYSQL_DATABASE = "monica"
+  MYSQL_ROOT_PASSWORD = "monica"
+  MYSQL_USER = "monica"
+  MYSQL_PASSWORD = "monica"
+
+[containers.monica]
+image = "docker.io/library/monica:4.0.0"
+volumes = [ "./data/monica/monica/:/var/www/html/storage" ]
+  [containers.monica.env]
+  APP_ENV = "production"
+  DB_HOST = "127.0.0.1"
+  DB_DATABASE = "monica"
+  DB_USERNAME = "monica"
+  DB_PASSWORD = "monica"
+  LOG_CHANNEL = "stderr"
+  CACHE_DRIVER = "database"
+  SESSION_DRIVER = "database"
+  QUEUE_DRIVER = "sync"
+
